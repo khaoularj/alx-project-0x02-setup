@@ -15,3 +15,11 @@ export interface ButtonProps {
     label: string;
     onClick?: () => void;
 }
+
+export interface PostProps {
+    body: string;
+    id: number;
+    title: string;
+    content: string;
+    userId: number;
+}
