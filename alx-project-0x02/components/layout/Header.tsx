@@ -26,6 +26,12 @@ const Header = () => {
         >
           Posts
         </Link>
+        <Link
+          href="/users"
+          className="mx-4 text-lg text-white hover:text-pink-400"
+        >
+          Users
+        </Link>
       </nav>
     </header>
   );
