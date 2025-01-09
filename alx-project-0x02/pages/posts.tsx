@@ -1,24 +1,27 @@
-import React, { useEffect, useState } from 'react';
+// pages/posts.tsx
+import React from 'react';
 import Header from '@/components/layout/Header';
 import PostCard from '@/components/common/PostCard';
 import { PostProps } from '@/interfaces';
 
-const Posts = () => {
-  const [posts, setPosts] = useState<PostProps[]>([]);
+interface PostsPageProps {
+  posts: PostProps[];
+}
 
-  useEffect(() => {
-    const fetchPosts = async () => {
-      const response = await fetch('https://jsonplaceholder.typicode.com/posts');
-      const data: PostProps[] = await response.json();
 
-   
-      const validPosts = data.filter(post => post.id && post.title && post.body);
-      setPosts(validPosts);
-    };
+export async function getStaticProps() {
+  
+  const res = await fetch('https://jsonplaceholder.typicode.com/posts');
+  const posts = await res.json();
 
-    fetchPosts();
-  }, []);
+  return {
+    props: {
+      posts,
+    },
+  };
+}
 
+const Posts = ({ posts }: PostsPageProps) => {
   return (
     <div className="min-h-screen bg-gray-100">
       <Header />
@@ -31,8 +34,8 @@ const Posts = () => {
             <PostCard
                   key={post.id}
                   title={post.title}
-                  content={post.body}
-                  userId={post.userId} id={0} body={''}            />
+                  content={post.content}
+                  userId={post.userId} body={''} id={0}            />
           ))}
         </div>
       </main>
